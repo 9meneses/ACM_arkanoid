@@ -91,8 +91,20 @@ public class Pelota extends GOval{
 			noHaChocado = false;
 		}
 		else if (auxiliar instanceof Barra){
-			yVelocidad *= -1;
-			noHaChocado = false;
+			//vamos a modificar el rebote de la bola con el cursor
+			//para que no sea siempre igual
+
+
+			//calculo la posción x del punto central 
+			double centroBola = getX() + getWidth()/2;
+			if (centroBola > auxiliar.getX() + auxiliar.getWidth()/3 //izquierda
+					&& centroBola < auxiliar.getX() + 2* auxiliar.getWidth()/3) //derecha {
+				yVelocidad *= -0.5;
+			}
+			else{
+				yVelocidad *= -1;
+				noHaChocado = false;
+			}
 		}
 		return noHaChocado;
 

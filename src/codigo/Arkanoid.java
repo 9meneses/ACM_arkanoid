@@ -47,8 +47,7 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 
 		while (true){
 			pelota1.muevete(this);
-			//pelota2.muevete(this);
-
+			
 			barra1.mueveBarra((int)pelota1.getX(), getWidth());
 			pause(2);
 

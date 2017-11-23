@@ -98,13 +98,17 @@ public class Pelota extends GOval{
 			//calculo la posción x del punto central 
 			double centroBola = getX() + getWidth()/2;
 			if (centroBola > auxiliar.getX() + auxiliar.getWidth()/3 //izquierda
-					&& centroBola < auxiliar.getX() + 2* auxiliar.getWidth()/3) //derecha {
-				yVelocidad *= -0.5;
+					&& centroBola < auxiliar.getX() + 2* auxiliar.getWidth()/3) { //derecha 
+				yVelocidad *= -1;
 			}
 			else{
-				yVelocidad *= -1;
+				yVelocidad *= -0.5;
 				noHaChocado = false;
+				
 			}
+		
+		
+		
 		}
 		return noHaChocado;
 
@@ -113,8 +117,8 @@ public class Pelota extends GOval{
 
 
 
+	}
 
-}
 
 
 

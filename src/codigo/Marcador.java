@@ -9,13 +9,14 @@ public class Marcador extends GRect {
 
 	
 	GLabel texto = new GLabel("");
+	int puntuacion = 0;
 
 	
 	public Marcador(double width, double height) {
 		super(width, height);
 		setFilled (true);
 		setFillColor(Color.WHITE);
-		texto.setLabel("HOLA");
+		texto.setLabel("0");
 		texto.setFont(new Font ("Arial", Font.BOLD, 18));
 		
 	}
@@ -25,6 +26,14 @@ public class Marcador extends GRect {
 		_arkanoid.add(texto, _arkanoid.getWidth() - 50, getY()+30);
 		
 	} 
+	
+	public void actualizaMarcador (int puntos){
+		puntuacion += puntos;
+		texto.setLabel("" + puntuacion);
+		
+	}
+	
+	
 
 	
 }

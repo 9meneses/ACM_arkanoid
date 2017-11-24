@@ -80,12 +80,26 @@ public class Pelota extends GOval{
 		auxiliar = _arkanoid.getElementAt(posX, posY);
 
 		if (auxiliar instanceof Ladrillo){
-			if (auxiliar.getY() == posY || auxiliar.getY() + auxiliar.getHeight() == posY){
-				yVelocidad *= -1;
+			//if (auxiliar.getY() >= posY && auxiliar.getY() + auxiliar.getHeight() <= posY){
+			//}
+
+			if (posX > auxiliar.getX() + auxiliar.getWidth()/3 && posX < auxiliar.getX() + 2*auxiliar.getWidth()/3){
+				yVelocidad = -1;
 			}
-			else if(auxiliar.getX() == posX || auxiliar.getX() + auxiliar.getWidth() == posX){
-				xVelocidad *= -1;
+			else {
+				yVelocidad = -0.5;
 			}
+			if (posY > auxiliar.getY() && posY < auxiliar.getY() + auxiliar.getHeight() ){
+				xVelocidad = -1;
+			}
+			yVelocidad = 1;
+			xVelocidad = 1;
+
+
+
+			//else if(auxiliar.getX() <= posX && auxiliar.getX() + auxiliar.getWidth() >= posX){
+			//  *= -1;
+			//}
 			_arkanoid.remove(auxiliar);
 			_arkanoid.marcador.actualizaMarcador(1);
 			noHaChocado = false;
@@ -99,25 +113,29 @@ public class Pelota extends GOval{
 			double centroBola = getX() + getWidth()/2;
 			if (centroBola > auxiliar.getX() + auxiliar.getWidth()/3 //izquierda
 					&& centroBola < auxiliar.getX() + 2* auxiliar.getWidth()/3) { //derecha 
-				yVelocidad *= -1;
+				yVelocidad = -1;
 			}
 			else{
-				yVelocidad *= -0.5;
+				yVelocidad = -0.5; 
 				noHaChocado = false;
 				
+
 			}
-		
-		
-		
+			
+			
+
+
 		}
 		return noHaChocado;
-
+		
+		
 	}
+	
 
 
 
 
-	}
+}
 
 
 

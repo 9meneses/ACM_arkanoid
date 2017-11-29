@@ -32,8 +32,10 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 	//el sistema del marcador
 
 	Marcador marcador = new Marcador (25, 40);
-	Vidas vidas = new Vidas (25,40);//creo el rectangulo de vidas 
-	GRect nivel = new GRect (20,40); //creo el rectangulo de niveles
+	Vidas vidas = new Vidas (25,40); //creo el rectangulo de vidas 
+
+	Nivel nivel = new Nivel (20,40); //creo el rectangulo de niveles
+
 
 
 
@@ -60,6 +62,7 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 	public void run(){
 		marcador.dibuja(this); //puntuacion
 		vidas.dibuja(this);	//vidas
+		nivel.dibuja(this); //nivel marcador
 
 
 
@@ -67,7 +70,7 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 
 
 		dibujaNivel01();
-		while (vidas.corazones <=3 || vidas.corazones >=0){
+		while (vidas.corazones <=3 && vidas.corazones >=0){
 			pelota1.muevete(this);
 			barra1.mueveBarra((int)pelota1.getX(), getWidth() - espacioMenu);
 			pause(0); //esta puesta a 2
@@ -151,25 +154,27 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 
 		if(marcador.puntuacion >= 105){ //pasa al siguiente nivel
 			dibujaNivel02();
+			nivel.actualizaNivel(1); //indicador del nivel
 			pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight());// reinicio la pelota
 
-			while (vidas.corazones <=3 || vidas.corazones >=0){ //arranca el nivel 
+			while (vidas.corazones <=3 && vidas.corazones >=0){ //arranca el nivel 
 
 				pelota1.muevete(this);
 
-				//barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
-				pause(2);
+				barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
+				pause(0);
 
 				if(marcador.puntuacion >= 160){ //pasa al siguiente nivel
 					dibujaNivel03();
+					nivel.actualizaNivel(1);	//indicador del nivel
 					pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight());// reinicio la pelota
 
-					while (vidas.corazones <=3 || vidas.corazones >=0){ //arranca el nivel 
+					while (vidas.corazones <=3 && vidas.corazones >=0){ //arranca el nivel 
 
 						pelota1.muevete(this);
 
-						//barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
-						pause(2);
+						barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
+						pause(0);
 					}
 
 				}

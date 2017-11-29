@@ -47,7 +47,7 @@ public class Pelota extends GOval{
 	 */
 	public void muevete(Arkanoid _arkanoid){
 		//chequea si ha chocado con las paredes izq o derecha
-		if (getX() + getWidth() >= _arkanoid.getWidth() 
+		if (getX() + getWidth() >= _arkanoid.getWidth() - _arkanoid.espacioMenu
 				|| getX()<0){
 			xVelocidad *= -1; 
 		}
@@ -55,23 +55,21 @@ public class Pelota extends GOval{
 		if (this.getY()<0){
 			yVelocidad *= -1; 
 		}
-		if(chequeaColision(getX(), getY(), _arkanoid)){ 									//chequeo la esquina superior izquierda
-			if(chequeaColision(getX()+getWidth(), getY(), _arkanoid)){ 						//chequeo la esquina superior derecha
-				if(chequeaColision(getX(), getY()+getHeight(), _arkanoid)){ 				//chequeo la esquina inferior izquierda
-					if(chequeaColision(getX()+getWidth(), getY()+getHeight(), _arkanoid)){ 	//chequeo la esquina inferior derecha
+		if(chequeaColision(getX(), getY(), _arkanoid)){} 									//chequeo la esquina superior izquierda
+		if(chequeaColision(getX()+getWidth(), getY(), _arkanoid)){} 						//chequeo la esquina superior derecha
+		if(chequeaColision(getX(), getY()+getHeight(), _arkanoid)){} 				//chequeo la esquina inferior izquierda
+		if(chequeaColision(getX()+getWidth(), getY()+getHeight(), _arkanoid)){} 	//chequeo la esquina inferior derecha
 
+		
 
-					}
-				}
-			}
-		}
 
 		//voy a crear un metodo chequeacolision generico
 		//que sirva para comprobar los choques entre la bola y los ladrillos
 		//y la bola y el cursor
 
-
+		
 		move(xVelocidad, yVelocidad);
+		
 	}
 
 	private boolean chequeaColision(double posX, double posY, Arkanoid _arkanoid){
@@ -83,19 +81,27 @@ public class Pelota extends GOval{
 			//if (auxiliar.getY() >= posY && auxiliar.getY() + auxiliar.getHeight() <= posY){
 			//}
 
-			if (posX > auxiliar.getX() + auxiliar.getWidth()/3 && posX < auxiliar.getX() + 2*auxiliar.getWidth()/3){
-				yVelocidad = -1;
+			if (auxiliar.getY() < posY){
+				yVelocidad *= -1;
 			}
-			else {
-				yVelocidad = -0.5;
+			if (auxiliar.getY() + auxiliar.getHeight() > posY){
+				yVelocidad *= -1;
 			}
-			if (posY > auxiliar.getY() && posY < auxiliar.getY() + auxiliar.getHeight() ){
-				xVelocidad = -1;
+			if (auxiliar.getX() < posX){
+				xVelocidad *= -1;
 			}
-			yVelocidad = 1;
-			xVelocidad = 1;
+			if (auxiliar.getX() + auxiliar.getWidth() > posX){
+				xVelocidad *= -1;
+			}
+			
+			
 
+			
+				
 
+			
+
+			
 
 			//else if(auxiliar.getX() <= posX && auxiliar.getX() + auxiliar.getWidth() >= posX){
 			//  *= -1;
@@ -105,6 +111,9 @@ public class Pelota extends GOval{
 			noHaChocado = false;
 		}
 		else if (auxiliar instanceof Barra){
+			
+			
+		
 			//vamos a modificar el rebote de la bola con el cursor
 			//para que no sea siempre igual
 
@@ -113,24 +122,25 @@ public class Pelota extends GOval{
 			double centroBola = getX() + getWidth()/2;
 			if (centroBola > auxiliar.getX() + auxiliar.getWidth()/3 //izquierda
 					&& centroBola < auxiliar.getX() + 2* auxiliar.getWidth()/3) { //derecha 
-				yVelocidad = -1;
+				yVelocidad *= -1;
 			}
 			else{
 				yVelocidad = -0.5; 
 				noHaChocado = false;
-				
+
 
 			}
-			
-			
+
+
 
 
 		}
 		return noHaChocado;
 		
-		
+
+
 	}
-	
+
 
 
 

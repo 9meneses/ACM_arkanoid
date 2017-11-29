@@ -1,7 +1,11 @@
 package codigo;
 
 import java.awt.Color;
+import java.awt.Font;
+
 import acm.graphics.*;
+import acm.util.RandomGenerator;
+
 import java.awt.event.MouseEvent;
 
 /*
@@ -12,6 +16,8 @@ import java.awt.event.MouseEvent;
 
 public class Arkanoid extends acm.program.GraphicsProgram{
 
+	RandomGenerator random = new RandomGenerator();
+
 
 	Pelota pelota1 = new Pelota(7, Color.GREEN);
 	//Pelota pelota2 = new Pelota(30, Color.BLUE);
@@ -20,12 +26,15 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 	int altoLadrillo = 15;
 	int espacioMenu = 100;
 
+	GLabel numero = new GLabel("");//mejorar esteticamente la puntuacion indicando que ese rectangulo es la puntuacion
 
 
 	//el sistema del marcador
 
-	Marcador marcador = new Marcador (20, 40);
-	Vidas vidas = new Vidas (20,40);//creo el rectangulo de vidas 
+	Marcador marcador = new Marcador (25, 40);
+	Vidas vidas = new Vidas (25,40);//creo el rectangulo de vidas 
+	GRect nivel = new GRect (20,40); //creo el rectangulo de niveles
+
 
 
 	public void init(){
@@ -36,58 +45,37 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 		//add(pelota2, 0, getHeight()*0.70 - pelota2.getHeight());
 
 		add(barra1, 0 , getHeight()*0.80);
-		
+
 
 		GRect lateral = new GRect (3, getHeight());
 		lateral.setFilled(true);
 		add (lateral, getWidth() - espacioMenu - lateral.getWidth() - pelota1.getWidth(), 0);
+		numero.setLabel("puntuacion");
+		numero.setFont(new Font ("Arial", Font.ITALIC,10));//esteticamente puntuacion
+		add(numero, getWidth()-100,20);	//esteticamente puntuacion
 
 
 	}
 
 	public void run(){
-		marcador.dibuja(this);
-		vidas.dibuja(this);
-	 	
-		
+		marcador.dibuja(this); //puntuacion
+		vidas.dibuja(this);	//vidas
+
+
+
+
 
 
 		dibujaNivel01();
-		while (true){
+		while (vidas.corazones <=3 || vidas.corazones >=0){
 			pelota1.muevete(this);
-			
-			
-
 			barra1.mueveBarra((int)pelota1.getX(), getWidth() - espacioMenu);
 			pause(0); //esta puesta a 2
+			actualizaNivel();
 
-			if(marcador.puntuacion >= 105){ //pasa al siguiente nivel
-				dibujaNivel02();
-				pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight());// reinicio la pelota
 
-				while (true){ //arranca el nivel 
 
-					pelota1.muevete(this);
 
-					barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
-					pause(0);
-
-					if(marcador.puntuacion >= 160){ //pasa al siguiente nivel
-						dibujaNivel03();
-						pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight());// reinicio la pelota
-
-						while (true){ //arranca el nivel 
-
-							pelota1.muevete(this);
-
-							barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
-							pause(0);
-						}
-
-					}
-				}
-
-			}
 
 
 		}
@@ -116,7 +104,7 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 								altoLadrillo*j,
 								anchoLadrillo, 
 								altoLadrillo, 
-								Color.PINK);
+								random.nextColor());
 
 				add(miLadrillo);
 				pause(7);
@@ -133,7 +121,7 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 								altoLadrillo*j,
 								anchoLadrillo, 
 								altoLadrillo, 
-								Color.PINK);
+								random.nextColor());
 
 				add(miLadrillo);
 				pause(7);
@@ -150,12 +138,45 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 								altoLadrillo*j,
 								anchoLadrillo, 
 								anchoLadrillo, //consigo que se apile uno encima de otro
-								Color.PINK);
+								random.nextColor());
 
 				add(miLadrillo);
 				pause(7);
 			}
 		}
+	}
+
+	private void actualizaNivel(){
+
+
+		if(marcador.puntuacion >= 105){ //pasa al siguiente nivel
+			dibujaNivel02();
+			pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight());// reinicio la pelota
+
+			while (vidas.corazones <=3 || vidas.corazones >=0){ //arranca el nivel 
+
+				pelota1.muevete(this);
+
+				//barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
+				pause(2);
+
+				if(marcador.puntuacion >= 160){ //pasa al siguiente nivel
+					dibujaNivel03();
+					pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight());// reinicio la pelota
+
+					while (vidas.corazones <=3 || vidas.corazones >=0){ //arranca el nivel 
+
+						pelota1.muevete(this);
+
+						//barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
+						pause(2);
+					}
+
+				}
+			}
+
+		}
+
 	}
 }
 

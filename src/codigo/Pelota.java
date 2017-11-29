@@ -7,6 +7,7 @@ package codigo;
  */
 import java.awt.Color;
 
+
 import acm.graphics.GObject;
 import acm.graphics.GOval;
 
@@ -36,7 +37,7 @@ public class Pelota extends GOval{
 	public Pelota(double _ancho, Color _color){
 		super(_ancho, _ancho);
 		if (_ancho <=0){
-			setSize(1, 1);
+			setSize(1, 1);//sirve para declarar el tamaño no obstante ya le declaramos el tamaño en arkanoid
 		}
 		setFillColor(_color);
 		setFilled(true);
@@ -52,14 +53,39 @@ public class Pelota extends GOval{
 			xVelocidad *= -1; 
 		}
 		//chequea si ha chocado con el techo
-		if (this.getY()<0){
+		if (getY()<0){
 			yVelocidad *= -1; 
 		}
-		if(chequeaColision(getX(), getY(), _arkanoid)){} 									//chequeo la esquina superior izquierda
-		if(chequeaColision(getX()+getWidth(), getY(), _arkanoid)){} 						//chequeo la esquina superior derecha
-		if(chequeaColision(getX(), getY()+getHeight(), _arkanoid)){} 				//chequeo la esquina inferior izquierda
-		if(chequeaColision(getX()+getWidth(), getY()+getHeight(), _arkanoid)){} 	//chequeo la esquina inferior derecha
+		
+		
+		//declaro las vidas que cuando choque con la pared de abajo, quite una vida y vuelvas a tener 
+		//otra pelota en juego si te quedan vidas al perder la pelota al chochar con la pared de abajo
+	
+		if (getY()>= _arkanoid.getHeight() && _arkanoid.vidas.corazones >= 3 ){
+			setLocation(0,_arkanoid.getHeight()*0.60 -getHeight());
+			_arkanoid.vidas.actualizaVida(-1);
+		}
+		if (getY()>= _arkanoid.getHeight() && _arkanoid.vidas.corazones >= 2 ){
+			setLocation(0,_arkanoid.getHeight()*0.60 -getHeight());
+			_arkanoid.vidas.actualizaVida(-1);
+		}
+		if (getY()>= _arkanoid.getHeight() && _arkanoid.vidas.corazones >= 1 ){
+			setLocation(0,_arkanoid.getHeight()*0.60 -getHeight());
+			_arkanoid.vidas.actualizaVida(-1);
+		}
+		
+		
+		
+		if(chequeaColision(getX(), getY(), _arkanoid)){ 									//chequeo la esquina superior izquierda
+			if(chequeaColision(getX()+getWidth(), getY(), _arkanoid)){ 						//chequeo la esquina superior derecha
+				if(chequeaColision(getX(), getY()+getHeight(), _arkanoid)){ 				//chequeo la esquina inferior izquierda
+					if(chequeaColision(getX()+getWidth(), getY()+getHeight(), _arkanoid)){ 	//chequeo la esquina inferior derecha
 
+
+					}
+				}
+			}
+		}
 		
 
 
@@ -71,6 +97,8 @@ public class Pelota extends GOval{
 		move(xVelocidad, yVelocidad);
 		
 	}
+
+	
 
 	private boolean chequeaColision(double posX, double posY, Arkanoid _arkanoid){
 		boolean noHaChocado = true;

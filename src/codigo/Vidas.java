@@ -1,6 +1,7 @@
 package codigo;
 
 import java.awt.Color;
+
 import java.awt.Font;
 
 import acm.graphics.GLabel;
@@ -9,6 +10,12 @@ import acm.graphics.GRect;
 public class Vidas extends GRect {
 	GLabel vidas = new GLabel ("");
 	int corazones = 3;
+	
+	
+
+	
+	
+	
 	
 	public Vidas(double width, double height) {
 		super(width, height);
@@ -19,6 +26,8 @@ public class Vidas extends GRect {
 		vidas.setFont(new Font ("Arial", Font.BOLD, 18));
 		
 		
+		
+		
 	}
 	public void dibuja (Arkanoid _arkanoid){
 		_arkanoid.add (this, _arkanoid.getWidth() - 30, getY()+90);
@@ -26,7 +35,7 @@ public class Vidas extends GRect {
 	}
 	
 	public void actualizaVida (int vida){
-		corazones -= vida;
+		corazones += vida;
 		vidas.setLabel("" + corazones);
 		
 	}

@@ -12,10 +12,10 @@ import java.awt.Color;
 import acm.graphics.GObject;
 import acm.graphics.GOval;
 
-public class Pelota extends GOval{
+public class PelotaBonus extends GOval{
 
 	double xVelocidad = 1; //velocidad de la bola en el eje X
-	double yVelocidad = -1; //velocidad de la bola en el eje Y
+	double yVelocidad = 1; //velocidad de la bola en el eje Y
 
 
 	/**
@@ -24,7 +24,7 @@ public class Pelota extends GOval{
 	 * @param _ancho
 	 * @param _alto
 	 */
-	public Pelota(double _ancho, double _alto){
+	public PelotaBonus(double _ancho, double _alto){
 		super(_ancho, _alto);
 	}
 
@@ -35,8 +35,8 @@ public class Pelota extends GOval{
 	 * @param _ancho indica el ancho y el alto de la bola
 	 * @param _color
 	 */
-	public Pelota(double _ancho, Color _color){
-		super(_ancho, _ancho);
+	public PelotaBonus(double _ancho, Color _color){
+		super(_ancho, _ancho); //sabemos que una pelota es igual de ancho que de alto por eso no ponemos double _alto como esta reflejado arriba
 		if (_ancho <=0){
 			setSize(1, 1);//sirve para declarar el tamaño no obstante ya le declaramos el tamaño en arkanoid
 		}
@@ -47,7 +47,7 @@ public class Pelota extends GOval{
 	 * se encarga de mover a la pelota y chequear si ha habido colisiones
 	 * 
 	 */
-	public void muevete(Arkanoid _arkanoid){
+	public void mueveteBonus(Arkanoid _arkanoid){ //para diferenciarlo de la pelota buena, es decir, la pelota que no es bonus
 		//chequea si ha chocado con las paredes izq o derecha
 		if (getX() + getWidth() >= _arkanoid.getWidth() - _arkanoid.espacioMenu
 				|| getX()<0){
@@ -62,18 +62,6 @@ public class Pelota extends GOval{
 		//declaro las vidas que cuando choque con la pared de abajo, quite una vida y vuelvas a tener 
 		//otra pelota en juego si te quedan vidas al perder la pelota al chochar con la pared de abajo
 	
-		if (getY()>= _arkanoid.getHeight() && _arkanoid.vidas.corazones >= 3 ){
-			setLocation(0,_arkanoid.getHeight()*0.60 -getHeight());
-			_arkanoid.vidas.actualizaVida(-1);
-		}
-		if (getY()>= _arkanoid.getHeight() && _arkanoid.vidas.corazones >= 2 ){
-			setLocation(0,_arkanoid.getHeight()*0.60 -getHeight());
-			_arkanoid.vidas.actualizaVida(-1);
-		}
-		if (getY()>= _arkanoid.getHeight() && _arkanoid.vidas.corazones >= 1 ){
-			setLocation(0,_arkanoid.getHeight()*0.60 -getHeight());
-			_arkanoid.vidas.actualizaVida(-1);
-		}
 		
 		
 		

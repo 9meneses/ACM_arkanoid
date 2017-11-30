@@ -20,11 +20,21 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 
 
 	Pelota pelota1 = new Pelota(7, Color.GREEN);
-	PelotaBonus pelota2 = new PelotaBonus(7, Color.BLUE);
-	Barra barra1 = new Barra(60, 15, Color.RED);
+	PelotaBonus pelota2 = new PelotaBonus(7, Color.BLUE); //pelota bonus
+	
+
+	BonusArkanoidPelota ladrilloBonus = new BonusArkanoidPelota (25,15,random.nextColor()); //ladrillo que cuando se rompa haya una pelota
+
+	BarraBonus barraBonus = new BarraBonus (25,15,Color.BLACK);
+
 	int anchoLadrillo = 25;
 	int altoLadrillo = 15;
 	int espacioMenu = 100;
+	int anchoBarra = 60;
+	int altoBarra = 15;
+	Barra barra1 = new Barra(anchoBarra, altoBarra, Color.RED); //acuerdate que si los valores que pones a un objeto estan declarados debajo, va dar error
+
+	
 
 	GLabel numero = new GLabel("");//mejorar esteticamente la puntuacion indicando que ese rectangulo es la puntuacion
 
@@ -44,8 +54,8 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 		setSize(500, 600);
 
 		add(pelota1, 0, getHeight()*0.60 - pelota1.getHeight());
-		
-	
+
+
 
 
 		add(barra1, 0 , getHeight()*0.80);
@@ -76,7 +86,7 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 		dibujaNivel01();
 		while (vidas.corazones <=3 && vidas.corazones >=0){
 			pelota1.muevete(this);
-			
+
 
 			barra1.mueveBarra((int)pelota1.getX(), getWidth() - espacioMenu);
 			pause(0); //esta puesta a 2
@@ -132,12 +142,19 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 								altoLadrillo*j,
 								anchoLadrillo, 
 								altoLadrillo, 
-								random.nextColor());
+								Color.PINK);
 
-				add(miLadrillo);
-				pause(7);
+				if (random.nextInt(numLadrillos)==8){
+					add (barraBonus,anchoLadrillo*i + anchoLadrillo*j/2,
+							altoLadrillo*j); //consigo que se apile uno encima de otro
+
+				}
+					add(miLadrillo);
+					pause(7);
+				
 			}
 		}
+		add (barraBonus);
 
 	}
 	private void dibujaNivel03(){
@@ -150,11 +167,21 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 								anchoLadrillo, 
 								anchoLadrillo, //consigo que se apile uno encima de otro
 								random.nextColor());
+				if (random.nextInt(numLadrillos)==8){ //ladrillo para crear una pelota nueva
+					add (ladrilloBonus,anchoLadrillo*i - anchoLadrillo*j/2,
+							altoLadrillo*j); //consigo que se apile uno encima de otro
+
+
+
+				}
+
 
 				add(miLadrillo);
 				pause(7);
 			}
 		}
+		add (ladrilloBonus);
+
 	}
 
 	private void actualizaNivel(){
@@ -173,36 +200,31 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 				//barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
 				pause(2);
 
-				
-					if (marcador.puntuacion >= 120){
-						add(pelota2, 0, getHeight()*0.20 - pelota2.getHeight()); 
-						while (vidas.corazones <=3 && vidas.corazones >=0){
-							pelota1.muevete(this);
-							pelota2.mueveteBonus(this);
-							pause(2);
 
-					if(marcador.puntuacion >= 160){ //pasa al siguiente nivel
-						dibujaNivel03();
-						nivel.actualizaNivel(1);	//indicador del nivel
-						pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight());// reinicio la pelota
 
-						while (vidas.corazones <=3 && vidas.corazones >=0){ //arranca el nivel 
 
-							pelota1.muevete(this);
-							pelota2.mueveteBonus(this);
+				if(marcador.puntuacion >= 160){ //pasa al siguiente nivel
+					dibujaNivel03();
+					nivel.actualizaNivel(1);	//indicador del nivel
+					pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight());// reinicio la pelota
 
-							barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
-							pause(2);
-						}
+					while (vidas.corazones <=3 && vidas.corazones >=0){ //arranca el nivel 
 
+						pelota1.muevete(this);
+						pelota2.mueveteBonus(this);
+
+						//barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
+						pause(2);
 					}
-				}
 
+				}
 			}
 
 		}
+
 	}
-	}
+
+
 	private void bonusPelota(){
 		if(marcador.puntuacion >= 120){
 			dibujaPelotaBonus();
@@ -214,9 +236,9 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 		}
 
 	}
-	private void dibujaPelotaBonus(){
-		
-		add(pelota2, 0, getHeight()*0.70 - pelota2.getHeight()); 
+	public void dibujaPelotaBonus(){ //condicion para añadir la pelota Bonus cuando rompa el ladrillo
+
+		add(pelota2, 0, getHeight()*0.20 - pelota2.getHeight()); 
 		pause (7);
 	}
 }

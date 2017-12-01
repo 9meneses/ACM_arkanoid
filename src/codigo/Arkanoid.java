@@ -1,6 +1,7 @@
 package codigo;
 
 import java.awt.Color;
+
 import java.awt.Font;
 
 import acm.graphics.*;
@@ -17,15 +18,18 @@ import java.awt.event.MouseEvent;
 public class Arkanoid extends acm.program.GraphicsProgram{
 
 	RandomGenerator random = new RandomGenerator(); 
+	
 
 
 	Pelota pelota1 = new Pelota(7, Color.GREEN);
 	PelotaBonus pelota2 = new PelotaBonus(7, Color.BLUE); //pelota que se genera como bonus
+	
+	GRect inicio =  new GRect (60,40); 
 
 
 	BonusArkanoidPelota ladrilloBonus = new BonusArkanoidPelota (25,15,random.nextColor()); //ladrillo que cuando se rompa se cree la pelotaBonus
 
-	BarraBonus barraBonus = new BarraBonus (25,15,Color.BLACK);
+	BarraBonus barraBonus = new BarraBonus (25,15,random.nextColor());
 
 	int anchoLadrillo = 25;
 	int altoLadrillo = 15;
@@ -38,6 +42,7 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 	GLabel numero = new GLabel("");//mejorar esteticamente la puntuacion indicando que ese rectangulo es la puntuacion
 	GLabel oportunidades = new GLabel(""); //mejorar esteticamente el indicador de vidas diciendo que ese rectangulo son las vidas
 	GLabel dificultad = new GLabel(""); //mejorar esticamente el indicador de niveles diciendo que ese rectangulo indica los niveles
+	GLabel volver = new GLabel (""); //GLabel en el que pondra reintentar dentro del marco incio
 
 	
 	Marcador marcador = new Marcador (25, 40); //creo el rectangulo de puntución
@@ -72,7 +77,13 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 		//indicador que es el nivel
 		dificultad.setLabel("nivel"); 
 		dificultad.setFont(new Font ("Arial", Font.ITALIC,10)); 
-		add(dificultad, getWidth()-80,320);	
+		add(dificultad, getWidth()-80,220);	
+		
+		//indicador para reintentar
+		add (inicio,getWidth() - 80,360);
+		volver.setLabel("Reintentar"); 
+		volver.setFont(new Font ("Arial", Font.ITALIC,10));
+		add(volver, getWidth()-70,380);
 
 
 	}
@@ -88,8 +99,8 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 		while (vidas.corazones <=3 && vidas.corazones >=0){
 			pelota1.muevete(this);
 
-			//barra1.mueveBarra((int)pelota1.getX(), getWidth() - espacioMenu); //hack
-			pause(2); //esta puesta a 2
+			barra1.mueveBarra((int)pelota1.getX(), getWidth() - espacioMenu); //hack
+			pause(0); //esta puesta a 2
 			actualizaNivel();
 
 		}
@@ -99,6 +110,12 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 	//este es el método que mueve la barra, en función de donde desplaza el ratón sobre el ejeX
 	public void mouseMoved (MouseEvent evento){
 		barra1.mueveBarra(evento.getX(), getWidth() - espacioMenu);
+	}
+	//este es el método para volver a empezar a jugar Arkanoid desde el principio
+	public void mouseClicked (MouseEvent evento){
+		if (getElementAt(evento.getX(),evento.getY()) == inicio){
+		
+		}
 	}
 
 	private void dibujaNivel01(){
@@ -127,19 +144,21 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 								altoLadrillo*j,
 								anchoLadrillo, 
 								altoLadrillo, 
-								Color.PINK);
+								random.nextColor());
 
-				//if (random.nextInt(numLadrillos)==8){
-				//add (barraBonus,anchoLadrillo*i + anchoLadrillo*j/2,
-				//altoLadrillo*j); //consigo que se apile uno encima de otro
-
-				//}
+				if (random.nextInt(numLadrillos)==8){
+				add (barraBonus,anchoLadrillo*i + anchoLadrillo*j/2,
+				altoLadrillo*j); 
+				
+				}
+				
 				add(miLadrillo);
 				pause(7);
+				
 
 			}
 		}
-		//add (barraBonus);
+		add (barraBonus);
 
 	}
 	private void dibujaNivel03(){
@@ -162,12 +181,13 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 			}
 		}
 		add (ladrilloBonus);
+		
 
 	}
 
 	private void actualizaNivel(){
 
-		if(marcador.puntuacion >= 105){ //pasa al siguiente nivel
+		if(marcador.puntuacion >= 105){ //pasa al siguiente nivel es decir al Nivel02
 			dibujaNivel02();
 			nivel.actualizaNivel(1); //indicador del nivel
 			pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight());// reinicio la pelota a su punto original para empezar el nivel
@@ -176,10 +196,10 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 
 				pelota1.muevete(this);
 
-				//barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
-				pause(2);
+				barra1.mueveBarra((int)pelota1.getX(), getWidth()- espacioMenu);
+				pause(0);
 
-				if(marcador.puntuacion >= 160){ //pasa al siguiente nivel
+				if(marcador.puntuacion >= 160){ //pasa al siguiente nivel, es decir, nivel03
 					dibujaNivel03();
 					nivel.actualizaNivel(1);	//indicador del nivel
 					pelota1.setLocation (0, getHeight()*0.60 - pelota1.getHeight()); //reinicio la pelota a su punto original para empezar el nivel
@@ -205,6 +225,8 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 		add(pelota2, 0, getHeight()*0.20 - pelota2.getHeight()); 
 		pause (7);
 	}
+	
+	
 }
 
 

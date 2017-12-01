@@ -30,7 +30,7 @@ public class Nivel extends GRect {
 		
 	}
 	public void dibuja (Arkanoid _arkanoid){
-		_arkanoid.add (this, _arkanoid.getWidth() - 30, getY()+300);
+		_arkanoid.add (this, _arkanoid.getWidth() - 30, getY()+200);
 		_arkanoid.add(nivel, _arkanoid.getWidth() - 30, getY()+30);
 	}
 	public void actualizaNivel(int vida){

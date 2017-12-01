@@ -18,8 +18,6 @@ public class BonusArkanoidPelota extends GRect{
 
 	/**
 	 * construye un ladrillo
-	 * @param x
-	 * @param y
 	 * @param width
 	 * @param height
 	 * @param _color

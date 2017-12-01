@@ -107,25 +107,25 @@ public class Pelota extends GOval{
 		GObject auxiliar;
 		auxiliar = _arkanoid.getElementAt(posX, posY);
 
-		//if (auxiliar instanceof BarraBonus){
-		//if (auxiliar.getY() < posY){
-		//yVelocidad *= -1;
-		//}
-		//if (auxiliar.getY() + auxiliar.getHeight() > posY){
-		//yVelocidad *= -1;
-		//}
-		//if (auxiliar.getX() < posX){
-		//xVelocidad *= -1;
-		//}
-		//if (auxiliar.getX() + auxiliar.getWidth() > posX){
-		//xVelocidad *= -1;
-		//}
-		//_arkanoid.remove(auxiliar);
-		//_arkanoid.marcador.actualizaMarcador(1);
-		//_arkanoid.anchoBarra +=20;
-		//_arkanoid.anchoBarra.setSize(barra1, 0 , getHeight()*0.80);
-		//noHaChocado = false;
-		//}
+		if (auxiliar instanceof BarraBonus){
+		if (auxiliar.getY() < posY){
+		yVelocidad *= -1;
+		}
+		if (auxiliar.getY() + auxiliar.getHeight() > posY){
+		yVelocidad *= -1;
+		}
+		if (auxiliar.getX() < posX){
+		xVelocidad *= -1;
+		}
+		if (auxiliar.getX() + auxiliar.getWidth() > posX){
+		xVelocidad *= -1;
+		}
+		_arkanoid.remove(auxiliar);
+		_arkanoid.marcador.actualizaMarcador(1);
+		_arkanoid.anchoBarra +=20;
+		_arkanoid.barra1.setSize( _arkanoid.anchoBarra , _arkanoid.altoBarra);
+		noHaChocado = false;
+		}
 
 		if (auxiliar instanceof BonusArkanoidPelota){
 			if (auxiliar.getY() < posY){

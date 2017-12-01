@@ -7,10 +7,10 @@ import acm.graphics.GRect;
 
 /**
  * 
- * @author Jorge Cisneros
+ * @author Roberto Meneses
  *
  * La clase Ladrillo sirve para dibujar los ladrillos
- * del juego
+ * del juego, no obstante esta es la clase que dicho ladrillo dibujado tiene un Bonus en este caso la PelotaBonus
  */
 public class BonusArkanoidPelota extends GRect{
 

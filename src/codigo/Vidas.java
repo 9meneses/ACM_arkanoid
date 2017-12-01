@@ -7,6 +7,13 @@ import java.awt.Font;
 import acm.graphics.GLabel;
 import acm.graphics.GRect;
 
+/**
+ * 
+ * @author Roberto Meneses
+ * 
+ * Esta clase sirve para añadir las vidas, en un marco
+ *
+ */
 public class Vidas extends GRect {
 	GLabel vidas = new GLabel ("");
 	int corazones = 3;

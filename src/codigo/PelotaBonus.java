@@ -1,10 +1,13 @@
 package codigo;
 /*
- * autor Jorge Cisneros
+ * Autor: Roberto Meneses
 
- * La clase pelota es la que vamos a utilizar para
+
+ * La clase PelotaBonus es la que vamos a utilizar para
  * el juego del arkanoid
- * Tiene dos constructores
+ * Tiene dos constructores, en caso de que a una pelota Bonus que cree en un futuro
+ * no la quiera poner color cuando la cree en Arkanoid,
+ *  cosa que no tendria sentido, pero esta ahi por si acaso
  */
 import java.awt.Color;
 

@@ -1,11 +1,18 @@
 package codigo;
 import java.awt.Color;
 
+
 import java.awt.Font;
 
 import acm.graphics.*;
 
-
+/**
+ * 
+ * @author Roberto Meneses
+ * Esta clase sirve para añadir el marcador, es decir la puntuación
+ * en un marco
+ *
+ */
 public class Marcador extends GRect {
 
 	

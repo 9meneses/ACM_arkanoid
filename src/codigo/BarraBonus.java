@@ -6,9 +6,9 @@ import acm.graphics.GRect;
 
 /**
  * 
- * @author Jorge Cisneros
+ * @author Roberto Meneses
  *
- *	la clase Barra es la que dibuja el cursor del juego
+ *	la clase Barra es la que dibuja el cursor del juego, no obstante esta es la barra bonus
  */
 public class BarraBonus extends GRect{
 

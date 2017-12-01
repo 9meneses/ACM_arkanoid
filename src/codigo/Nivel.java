@@ -1,10 +1,18 @@
 package codigo;
 
 import java.awt.Color;
+
 import java.awt.Font;
 
 import acm.graphics.GLabel;
 import acm.graphics.GRect;
+
+/**
+ * 
+ * @author Roberto
+ * Esta clase sirve para añadir el nivel,
+ * en un marco
+ */
 
 public class Nivel extends GRect {
 	

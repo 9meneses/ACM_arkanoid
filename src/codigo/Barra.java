@@ -1,8 +1,11 @@
+
 package codigo;
 
 import java.awt.Color;
 
 import acm.graphics.GRect;
+
+//Autor: Roberto Meneses
 
 /**
  * 

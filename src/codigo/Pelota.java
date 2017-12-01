@@ -1,6 +1,7 @@
 package codigo;
 /*
- * autor Jorge Cisneros
+ * Autor: Roberto Meneses
+
 
  * La clase pelota es la que vamos a utilizar para
  * el juego del arkanoid
@@ -57,11 +58,11 @@ public class Pelota extends GOval{
 		if (getY()<0){
 			yVelocidad *= -1; 
 		}
-		
-		
+
+
 		//declaro las vidas que cuando choque con la pared de abajo, quite una vida y vuelvas a tener 
-		//otra pelota en juego si te quedan vidas al perder la pelota al chochar con la pared de abajo
-	
+		//otra pelota en juego si te quedan vidas al perder la pelota 
+
 		if (getY()>= _arkanoid.getHeight() && _arkanoid.vidas.corazones >= 3 ){
 			setLocation(0,_arkanoid.getHeight()*0.60 -getHeight());
 			_arkanoid.vidas.actualizaVida(-1);
@@ -74,9 +75,9 @@ public class Pelota extends GOval{
 			setLocation(0,_arkanoid.getHeight()*0.60 -getHeight());
 			_arkanoid.vidas.actualizaVida(-1);
 		}
-		
-		
-		
+
+
+
 		if(chequeaColision(getX(), getY(), _arkanoid)){ 									//chequeo la esquina superior izquierda
 			if(chequeaColision(getX()+getWidth(), getY(), _arkanoid)){ 						//chequeo la esquina superior derecha
 				if(chequeaColision(getX(), getY()+getHeight(), _arkanoid)){ 				//chequeo la esquina inferior izquierda
@@ -87,16 +88,16 @@ public class Pelota extends GOval{
 				}
 			}
 		}
-		
 
 
 		//voy a crear un metodo chequeacolision generico
 		//que sirva para comprobar los choques entre la bola y los ladrillos
 		//y la bola y el cursor
 
-		
+
+
 		move(xVelocidad, yVelocidad);
-		
+
 	}
 
 	
@@ -105,27 +106,27 @@ public class Pelota extends GOval{
 		boolean noHaChocado = true;
 		GObject auxiliar;
 		auxiliar = _arkanoid.getElementAt(posX, posY);
-		
-		if (auxiliar instanceof BarraBonus){
-			if (auxiliar.getY() < posY){
-				yVelocidad *= -1;
-			}
-			if (auxiliar.getY() + auxiliar.getHeight() > posY){
-				yVelocidad *= -1;
-			}
-			if (auxiliar.getX() < posX){
-				xVelocidad *= -1;
-			}
-			if (auxiliar.getX() + auxiliar.getWidth() > posX){
-				xVelocidad *= -1;
-			}
-			_arkanoid.remove(auxiliar);
-			_arkanoid.marcador.actualizaMarcador(1);
-			_arkanoid.anchoBarra +=20;
-			_arkanoid.anchoBarra.setSize(barra1, 0 , getHeight()*0.80);
-			noHaChocado = false;
-		}
-		
+
+		//if (auxiliar instanceof BarraBonus){
+		//if (auxiliar.getY() < posY){
+		//yVelocidad *= -1;
+		//}
+		//if (auxiliar.getY() + auxiliar.getHeight() > posY){
+		//yVelocidad *= -1;
+		//}
+		//if (auxiliar.getX() < posX){
+		//xVelocidad *= -1;
+		//}
+		//if (auxiliar.getX() + auxiliar.getWidth() > posX){
+		//xVelocidad *= -1;
+		//}
+		//_arkanoid.remove(auxiliar);
+		//_arkanoid.marcador.actualizaMarcador(1);
+		//_arkanoid.anchoBarra +=20;
+		//_arkanoid.anchoBarra.setSize(barra1, 0 , getHeight()*0.80);
+		//noHaChocado = false;
+		//}
+
 		if (auxiliar instanceof BonusArkanoidPelota){
 			if (auxiliar.getY() < posY){
 				yVelocidad *= -1;
@@ -139,18 +140,16 @@ public class Pelota extends GOval{
 			if (auxiliar.getX() + auxiliar.getWidth() > posX){
 				xVelocidad *= -1;
 			}
-			
+
 			_arkanoid.remove(auxiliar);
 			_arkanoid.marcador.actualizaMarcador(1);
 			_arkanoid.dibujaPelotaBonus();
 			noHaChocado = false;
-			
+
 		}
 
 		if (auxiliar instanceof Ladrillo){
-			//if (auxiliar.getY() >= posY && auxiliar.getY() + auxiliar.getHeight() <= posY){
-			//}
-
+			
 			if (auxiliar.getY() < posY){
 				yVelocidad *= -1;
 			}
@@ -163,30 +162,15 @@ public class Pelota extends GOval{
 			if (auxiliar.getX() + auxiliar.getWidth() > posX){
 				xVelocidad *= -1;
 			}
-			
-			
 
-			
-				
-
-			
-
-			
-
-			//else if(auxiliar.getX() <= posX && auxiliar.getX() + auxiliar.getWidth() >= posX){
-			//  *= -1;
-			//}
 			_arkanoid.remove(auxiliar);
 			_arkanoid.marcador.actualizaMarcador(1);
 			noHaChocado = false;
 		}
 		else if (auxiliar instanceof Barra){
-			
-			
-		
+
 			//vamos a modificar el rebote de la bola con el cursor
 			//para que no sea siempre igual
-
 
 			//calculo la posción x del punto central 
 			double centroBola = getX() + getWidth()/2;
@@ -197,28 +181,12 @@ public class Pelota extends GOval{
 			else{
 				yVelocidad = -0.5; 
 				noHaChocado = false;
-
-
 			}
-
-
-
-
 		}
 		return noHaChocado;
-		
 
 
-	}
-	public void bonus(double posX, double posY,Arkanoid _arkanoid){
-	GObject auxiliar;
-	auxiliar = _arkanoid.getElementAt(posX, posY);
-	if (auxiliar instanceof BonusArkanoidPelota){
-		
-	}
-	}
-
-
+	}	
 
 }
 
